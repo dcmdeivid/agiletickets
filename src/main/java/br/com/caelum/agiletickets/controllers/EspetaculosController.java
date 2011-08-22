@@ -124,7 +124,5 @@ public class EspetaculosController {
 		return espetaculo;
 	}
 
-	private Estabelecimento criaEstabelecimento(Long id) {
-		return estabelecimentos.todos().get(0);
-	}
+
 }
