@@ -15,6 +15,11 @@ import javax.persistence.OneToMany;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
+import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.validator.ValidationMessage;
+
+import com.google.common.base.Strings;
+
 @Entity
 public class Espetaculo {
 
@@ -81,6 +86,18 @@ public class Espetaculo {
 
 	public List<Sessao> criaSessoes(LocalDate inicio, LocalDate fim, LocalTime horario, Periodicidade periodicidade) {
 		return null;
+	}
+	
+	public void valida(Validator validator)
+	{
+		if (Strings.isNullOrEmpty(getNome())) {
+			validator.add(new ValidationMessage("Nome do espetáculo não pode estar em branco", ""));
+		}
+		if (Strings.isNullOrEmpty(getDescricao())) {
+			validator.add(new ValidationMessage("Descrição do espetáculo não pode estar em branco", ""));
+			
+		}
+
 	}
 
 }
