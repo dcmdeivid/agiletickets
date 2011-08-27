@@ -19,17 +19,9 @@ public class PreencheBanco {
 
 		manager.getTransaction().begin();
 		limpaBanco(manager);
-		Estabelecimento estabelecimento = new Estabelecimento();
-		estabelecimento.setNome("Casa de shows");
-		estabelecimento.setEndereco("Rua dos Silveiras, 12345");
-
-		Espetaculo espetaculo = new Espetaculo();
-		espetaculo.setEstabelecimento(estabelecimento);
-		espetaculo.setNome("Depeche Mode");
-		espetaculo.setTipo(TipoDeEspetaculo.SHOW);
-
-		manager.persist(estabelecimento);
-		manager.persist(espetaculo);
+		Estabelecimento estabelecimento = criaEstabelecimento(manager);
+		
+		Espetaculo espetaculo = criaEspetaculo(manager, estabelecimento);
 
 		for (int i = 0; i < 10; i++) {
 			Sessao sessao = new Sessao();
@@ -43,6 +35,27 @@ public class PreencheBanco {
 
 		manager.getTransaction().commit();
 		manager.close();
+	}
+
+	private static Espetaculo criaEspetaculo(EntityManager manager,
+			Estabelecimento estabelecimento) {
+		Espetaculo espetaculo = new Espetaculo();
+		espetaculo.setEstabelecimento(estabelecimento);
+		espetaculo.setNome("Depeche Mode");
+		espetaculo.setTipo(TipoDeEspetaculo.SHOW);
+
+		
+		manager.persist(espetaculo);
+		return espetaculo;
+	}
+
+	private static Estabelecimento criaEstabelecimento(EntityManager manager) {
+		Estabelecimento estabelecimento = new Estabelecimento();
+		estabelecimento.setNome("Casa de shows");
+		estabelecimento.setEndereco("Rua dos Silveiras, 12345");
+		
+		manager.persist(estabelecimento);
+		return estabelecimento;
 	}
 
 	private static void limpaBanco(EntityManager manager) {
