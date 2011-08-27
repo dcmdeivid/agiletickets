@@ -10,7 +10,6 @@ import org.joda.time.LocalTime;
 import br.com.caelum.agiletickets.domain.Agenda;
 import br.com.caelum.agiletickets.domain.DiretorioDeEstabelecimentos;
 import br.com.caelum.agiletickets.models.Espetaculo;
-import br.com.caelum.agiletickets.models.Estabelecimento;
 import br.com.caelum.agiletickets.models.Periodicidade;
 import br.com.caelum.agiletickets.models.Sessao;
 import br.com.caelum.vraptor.Get;
@@ -20,8 +19,6 @@ import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.validator.ValidationMessage;
-
-import com.google.common.base.Strings;
 
 @Resource
 public class EspetaculosController {
@@ -53,6 +50,7 @@ public class EspetaculosController {
 		validator.onErrorRedirectTo(this).lista();
 
 		agenda.cadastra(espetaculo);
+		
 		result.redirectTo(this).lista();
 	}
 
@@ -75,13 +73,9 @@ public class EspetaculosController {
 			return;
 		}
 
-		if (quantidade < 1) {
-			validator.add(new ValidationMessage("Você deve escolher um lugar ou mais", ""));
-		}
+		quantidadeSolicitadaValida(quantidade);
 
-		if (!sessao.podeReservar(quantidade)) {
-			validator.add(new ValidationMessage("Não existem ingressos disponíveis", ""));
-		}
+		quantidadeSolicitadaDisponivel(quantidade, sessao);
 
 		validator.onErrorRedirectTo(this).sessao(sessao.getId());
 
@@ -89,6 +83,19 @@ public class EspetaculosController {
 		result.include("message", "Sessao reservada com sucesso");
 
 		result.redirectTo(IndexController.class).index();
+	}
+
+	private void quantidadeSolicitadaDisponivel(final Integer quantidade,
+			Sessao sessao) {
+		if (!sessao.podeReservar(quantidade)) {
+			validator.add(new ValidationMessage("Não existem ingressos disponíveis", ""));
+		}
+	}
+
+	private void quantidadeSolicitadaValida(final Integer quantidade) {
+		if (quantidade < 1) {
+			validator.add(new ValidationMessage("Você deve escolher um lugar ou mais", ""));
+		}
 	}
 
 	@Get @Path("/espetaculo/{espetaculoId}/sessoes")
@@ -113,9 +120,11 @@ public class EspetaculosController {
 
 	private Espetaculo carregaEspetaculo(Long espetaculoId) {
 		Espetaculo espetaculo = agenda.espetaculo(espetaculoId);
+		
 		if (espetaculo == null) {
 			validator.add(new ValidationMessage("", ""));
 		}
+		
 		validator.onErrorUse(status()).notFound();
 		return espetaculo;
 	}
