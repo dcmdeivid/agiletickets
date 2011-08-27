@@ -11,7 +11,7 @@ import br.com.caelum.agiletickets.models.TipoDeEspetaculo;
 import br.com.caelum.vraptor.util.jpa.EntityManagerCreator;
 import br.com.caelum.vraptor.util.jpa.EntityManagerFactoryCreator;
 
-public class PreencheBanco {
+public class PreencheBanco {    
 
 	public static void main(String[] args) {
 		EntityManagerFactoryCreator creator = new EntityManagerFactoryCreator();
