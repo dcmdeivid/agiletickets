@@ -31,8 +31,8 @@ public class Sessao {
 	private Integer ingressosReservados = 0;
 
 	
-	public Sessao(DateTime inicio) {
-	
+	public Sessao(Espetaculo espetaculo, DateTime inicio) {
+		this.espetaculo = espetaculo;
 		this.inicio = inicio;
 	}
 

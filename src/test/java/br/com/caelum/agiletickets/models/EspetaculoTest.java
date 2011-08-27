@@ -24,7 +24,7 @@ public class EspetaculoTest {
 		List<Sessao> sessoes = espetaculo.criaSessoes(inicioDoPeriodo, fimDoPeriodo, horario, Periodicidade.DIARIA);
 		
 		Assert.assertEquals(1, sessoes.size());
-		Assert.assertEquals(new Sessao(inicioDoPeriodo.toDateTime(horario)), sessoes.get(0));	
+		Assert.assertEquals(new Sessao(espetaculo, inicioDoPeriodo.toDateTime(horario)), sessoes.get(0));	
 	}
 	
 	@Test
@@ -40,12 +40,10 @@ public class EspetaculoTest {
 		List<Sessao> sessoes = espetaculo.criaSessoes(inicioDoPeriodo, fimDoPeriodo, horario, Periodicidade.DIARIA);
 		
 		Assert.assertEquals(2, sessoes.size());
-		Assert.assertEquals(new Sessao(inicioDoPeriodo.toDateTime(horario)), sessoes.get(0));
+		Assert.assertEquals(new Sessao(espetaculo, inicioDoPeriodo.toDateTime(horario)), sessoes.get(0));
 		
-		Assert.assertEquals(new Sessao(fimDoPeriodo.toDateTime(horario)), sessoes.get(1));
+		Assert.assertEquals(new Sessao(espetaculo, fimDoPeriodo.toDateTime(horario)), sessoes.get(1));
 		
 	}
 	
-	
-
 }
