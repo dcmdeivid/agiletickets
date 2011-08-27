@@ -50,4 +50,26 @@ public class EspetaculoTest {
 		
 	}
 	
+	@Test
+	public void deveCriar1SessaoParaOPeriodoDe1Semana() {
+		
+		LocalDate fimDoPeriodo = new LocalDate().plusDays(3);
+		
+		List<Sessao> sessoes = espetaculo.criaSessoes(inicioDoPeriodo, fimDoPeriodo, horario, Periodicidade.SEMANAL);
+		
+		Assert.assertEquals(1, sessoes.size());
+		Assert.assertEquals(new Sessao(espetaculo, inicioDoPeriodo.toDateTime(horario)), sessoes.get(0));
+	}
+	
+	@Test
+	public void deveCriar2SessaoParaOPeriodoDe2Semana() {
+		
+		LocalDate fimDoPeriodo = new LocalDate().plusWeeks(2);
+		
+		List<Sessao> sessoes = espetaculo.criaSessoes(inicioDoPeriodo, fimDoPeriodo, horario, Periodicidade.SEMANAL);
+		
+		Assert.assertEquals(3, sessoes.size());
+		Assert.assertEquals(new Sessao(espetaculo, inicioDoPeriodo.toDateTime(horario)), sessoes.get(0));
+		Assert.assertEquals(new Sessao(espetaculo, fimDoPeriodo.toDateTime(horario)), sessoes.get(2));
+	}
 }
