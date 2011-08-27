@@ -30,6 +30,16 @@ public class Sessao {
 
 	private Integer ingressosReservados = 0;
 
+	
+	public Sessao(DateTime inicio) {
+	
+		this.inicio = inicio;
+	}
+
+	public Sessao() {
+		
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -93,4 +103,51 @@ public class Sessao {
 	public boolean podeReservar(Integer numeroDeIngressos) {
 		return getIngressosDisponiveis() >= numeroDeIngressos;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime
+				* result
+				+ ((ingressosReservados == null) ? 0 : ingressosReservados
+						.hashCode());
+		result = prime * result + ((inicio == null) ? 0 : inicio.hashCode());
+		result = prime * result
+				+ ((totalIngressos == null) ? 0 : totalIngressos.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Sessao other = (Sessao) obj;
+		if (ingressosReservados == null) {
+			if (other.ingressosReservados != null)
+				return false;
+		} else if (!ingressosReservados.equals(other.ingressosReservados))
+			return false;
+		if (inicio == null) {
+			if (other.inicio != null)
+				return false;
+		} else if (!inicio.equals(other.inicio))
+			return false;
+		if (totalIngressos == null) {
+			if (other.totalIngressos != null)
+				return false;
+		} else if (!totalIngressos.equals(other.totalIngressos))
+			return false;
+		return true;
+	}
+
+
+
+
+	
+	
 }
