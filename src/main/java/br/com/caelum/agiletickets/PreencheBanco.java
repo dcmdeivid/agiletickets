@@ -18,9 +18,7 @@ public class PreencheBanco {
 		EntityManager manager = managerCreator.getInstance();
 
 		manager.getTransaction().begin();
-		manager.createQuery("delete from Sessao").executeUpdate();
-		manager.createQuery("delete from Espetaculo").executeUpdate();
-		manager.createQuery("delete from Estabelecimento").executeUpdate();
+		limpaBanco(manager);
 		Estabelecimento estabelecimento = new Estabelecimento();
 		estabelecimento.setNome("Casa de shows");
 		estabelecimento.setEndereco("Rua dos Silveiras, 12345");
@@ -45,6 +43,12 @@ public class PreencheBanco {
 
 		manager.getTransaction().commit();
 		manager.close();
+	}
+
+	private static void limpaBanco(EntityManager manager) {
+		manager.createQuery("delete from Sessao").executeUpdate();
+		manager.createQuery("delete from Espetaculo").executeUpdate();
+		manager.createQuery("delete from Estabelecimento").executeUpdate();
 	}
 
 	private static EntityManagerCreator setUp() {
