@@ -92,7 +92,6 @@ public class Espetaculo {
 			sessoes.add(new Sessao(this, inicio.plusDays(i).toDateTime(horario)));
 		}
 		return sessoes; 
-		
 	}
 	
 	public void valida(Validator validator)

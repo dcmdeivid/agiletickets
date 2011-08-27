@@ -6,20 +6,29 @@ import junit.framework.Assert;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
+import org.junit.Before;
 import org.junit.Test;
 
 
 public class EspetaculoTest {
 	
+	private LocalTime horario;
+	private LocalDate inicioDoPeriodo;
+	private Espetaculo espetaculo;
+
+	@Before
+	public void setUp() {
+		horario = new LocalTime(10, 10);
+		inicioDoPeriodo = new LocalDate();
+		espetaculo = new Espetaculo();
+	}
+	
 	@Test
 	public void deveCriarUmEspetaculoDiarioPara1Dia()
 	{
-		LocalTime horario = new LocalTime(10, 10);
 		
-		LocalDate inicioDoPeriodo = new LocalDate();
 		LocalDate fimDoPeriodo = new LocalDate();
 		
-		Espetaculo espetaculo = new Espetaculo();
 		
 		List<Sessao> sessoes = espetaculo.criaSessoes(inicioDoPeriodo, fimDoPeriodo, horario, Periodicidade.DIARIA);
 		
@@ -30,12 +39,7 @@ public class EspetaculoTest {
 	@Test
 	public void deveCriarEspetaculosDiariosPara2Dias()
 	{
-		LocalTime horario = new LocalTime(10, 10);
-		
-		LocalDate inicioDoPeriodo = new LocalDate();
 		LocalDate fimDoPeriodo = new LocalDate().plusDays(1);
-		
-		Espetaculo espetaculo = new Espetaculo();
 		
 		List<Sessao> sessoes = espetaculo.criaSessoes(inicioDoPeriodo, fimDoPeriodo, horario, Periodicidade.DIARIA);
 		
