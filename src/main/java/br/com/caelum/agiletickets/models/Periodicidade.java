@@ -48,5 +48,7 @@ public enum Periodicidade implements GeradorDeSessao {
 		}
 	};
 
+	public abstract List<Sessao> sessoes(Espetaculo espetaculo,LocalDate inicio, LocalDate fim,
+			LocalTime horario);
 	
 }
